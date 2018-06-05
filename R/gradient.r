@@ -14,6 +14,6 @@ gradient = function(par, weights=1, offset=0) {
     theta = exp(par[length(par)])
     mu = exp(x %*% beta + offset)
     gr = drop(y - mu * (y + theta)/(mu + theta))
-    colSums(-w * cbind(gr + x, theta * (digamma(y + theta) - digamma(theta) +
+    colSums(-w * cbind(gr * x, theta * (digamma(y + theta) - digamma(theta) +
             log(theta) + 1 - log(mu + theta) - (y + theta)/(mu + theta))))
 }
