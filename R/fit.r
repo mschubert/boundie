@@ -18,7 +18,7 @@ fit = function(x, y, weights=rep(1,nrow(x)), offset=0, control=list()) {
     #   ‘convergence’ - 0 if converged, other values indicate iteration limit or warning
     #   ‘message’ - character string with additional information
     stats::optim(par=start, fn=nll, gr=gradient, method="L-BFGS-B",
-                 control=control, weights=weights, offset=offset)
+                 control=control, .x=x, .y=y, weights=weights, offset=offset)
 
     #todo: assemble results in list and return that
     # would also be nice if wald statistic, p-value

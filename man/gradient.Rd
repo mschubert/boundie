@@ -4,14 +4,14 @@
 \alias{gradient}
 \title{Gradient function for negative binomial regression}
 \usage{
-gradient(par, x, y, weights, offset)
+gradient(par, .x, .y, weights, offset)
 }
 \arguments{
 \item{par}{numeric vector of coefficients in ’x’ and theta}
 
-\item{x}{design matrix of dimension ‘n * p’}
+\item{.x}{design matrix of dimension ‘n * p’}
 
-\item{y}{vector of observations of length ‘n’}
+\item{.y}{vector of observations of length ‘n’}
 
 \item{weights}{vector of weights of length ‘n’}
 
