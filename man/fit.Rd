@@ -4,7 +4,8 @@
 \alias{fit}
 \title{Fit parameters using the optim function}
 \usage{
-fit(x, y, weights = rep(1, nrow(x)), offset = 0, control = list())
+fit(x, y, weights = rep(1, nrow(x)), offset = 0, control = list(),
+  lower = Inf, upper = Inf)
 }
 \arguments{
 \item{x}{design matrix of dimension ‘n * p’}

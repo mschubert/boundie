@@ -7,8 +7,21 @@
 \alias{boundie}
 \title{Bounded differential expression using count data}
 \usage{
-boundie(formula, data = NULL, weights = NULL, bounds = NULL,
+boundie(x, design, weights = NULL, lower = -Inf, upper = Inf,
   control = NULL)
+}
+\arguments{
+\item{x}{a gene expression matrix (genes x samples)}
+
+\item{design}{the model to fit for each gene, e.g. ‘~ condition‘}
+
+\item{weights}{weight vector for all coefficients}
+
+\item{lower}{named vector of coefficient lower bounds}
+
+\item{upper}{named vector of coefficient upper bounds}
+
+\item{control}{named list of control variables for fit (e.g. maxiter)}
 }
 \description{
 Bounded differential expression using count data
