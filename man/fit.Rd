@@ -17,6 +17,10 @@ fit(x, y, weights = rep(1, nrow(x)), offset = 0, control = list(),
 \item{offset}{vector of coefficient offsets of length ‘n’}
 
 \item{control}{list of control paramters, e.g. ‘maxit’}
+
+\item{lower}{named vector of coefficient lower bounds}
+
+\item{upper}{named vector of coefficient upper bounds}
 }
 \value{
 named list with estimated coefficients

@@ -1,0 +1,6 @@
+\.gitignore
+\.gitattributes
+CHANGES\.md
+Makefile
+README\.md
+^\.travis\.yml$

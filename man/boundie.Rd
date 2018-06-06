@@ -7,8 +7,8 @@
 \alias{boundie}
 \title{Bounded differential expression using count data}
 \usage{
-boundie(x, design, weights = NULL, lower = -Inf, upper = Inf,
-  control = NULL)
+boundie(x, design, weights = rep(1, ncol(x)), offset = rep(0, ncol(x)),
+  lower = -Inf, upper = Inf, control = list())
 }
 \arguments{
 \item{x}{a gene expression matrix (genes x samples)}
@@ -16,6 +16,8 @@ boundie(x, design, weights = NULL, lower = -Inf, upper = Inf,
 \item{design}{the model to fit for each gene, e.g. ‘~ condition‘}
 
 \item{weights}{weight vector for all coefficients}
+
+\item{offset}{vector of coefficient offsets of length ‘n’}
 
 \item{lower}{named vector of coefficient lower bounds}
 
