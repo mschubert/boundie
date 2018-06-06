@@ -4,7 +4,7 @@
 \alias{nll}
 \title{Negative log likelihood function}
 \usage{
-nll(par)
+nll(par, weights, offset)
 }
 \description{
 Negative log likelihood function

@@ -4,7 +4,7 @@
 \alias{fit}
 \title{Fit parameters using the optim function}
 \usage{
-fit(x, y, weights = rep(1, ncol(x)), offset = 0, control = list())
+fit(x, y, weights = rep(1, nrow(x)), offset = 0, control = list())
 }
 \arguments{
 \item{x}{design matrix of dimension ‘n * p’}
@@ -18,11 +18,7 @@ fit(x, y, weights = rep(1, ncol(x)), offset = 0, control = list())
 \item{control}{list of control paramters, e.g. ‘maxit’}
 }
 \value{
-list with the following components:
-  ‘par’ - best values for paramters found
-  ‘value’ - negative log-likelihood at end of iterations
-  ‘convergence’ - 0 if converged, other values indicate iteration limit or warning
-  ‘message’ - character string with additional information
+named list with estimated coefficients
 }
 \description{
 Fit parameters using the optim function

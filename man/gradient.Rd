@@ -4,7 +4,7 @@
 \alias{gradient}
 \title{Gradient function for negative binomial regression}
 \usage{
-gradient(par, weights = 1, offset = 0)
+gradient(par, weights, offset)
 }
 \arguments{
 \item{par}{Numeric vector of coefficient values}
