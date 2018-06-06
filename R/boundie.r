@@ -11,5 +11,5 @@ boundie = function(formula, data=NULL, weights=NULL, bounds=NULL, control=NULL) 
     # run optim for all genes
     res = fit(x, y, weights=weights, offset=offset, control=control)
 
-    # return association data.frame
+    # return association data.frame for all genes
 }

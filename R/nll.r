@@ -2,9 +2,9 @@
 #'
 #' @param par
 #' @return
-nll = function(par) {
+nll = function(par, weights, offset) {
     beta = par[-length(par)]
     theta = exp(par[length(par)])
     mu = exp(x %*% beta + offset)
-    -sum(w * stats::dnbinom(y, mu=mu, size=theta, log=TRUE))
+    -sum(weights * stats::dnbinom(y, mu=mu, size=theta, log=TRUE))
 }

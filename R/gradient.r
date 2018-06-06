@@ -9,11 +9,12 @@
 #'
 #' @param par  Numeric vector of coefficient values
 #' @return  Direction of steepest descent (the gradient)
-gradient = function(par, weights=1, offset=0) {
+gradient = function(par, weights, offset) {
     beta = par[-length(par)]
     theta = exp(par[length(par)])
     mu = exp(x %*% beta + offset)
-    gr = drop(y - mu * (y + theta)/(mu + theta))
-    colSums(-w * cbind(gr * x, theta * (digamma(y + theta) - digamma(theta) +
-            log(theta) + 1 - log(mu + theta) - (y + theta)/(mu + theta))))
+    grc = drop(y - mu * (y + theta)/(mu + theta))
+    grt = digamma(y + theta) - digamma(theta) +
+        log(theta) + 1 - log(mu + theta) - (y + theta)/(mu + theta)
+    colSums(-weights * cbind(grc * x, grt * theta))
 }
