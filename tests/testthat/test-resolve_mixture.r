@@ -13,7 +13,7 @@ test_that("100 samples, 2 components, same as glm.nb", {
     terms = attr(mf, "terms")
     x = model.matrix(terms, mf)
     y = model.response(mf)
-    mod = fit(x, y)
+    res = fit(x, y)
 
-    expect_true(all(mod$par[1:2] - coef(ctl) < 1e-4))
+    expect_true(all(res[1:2] - coef(ctl) < 1e-4))
 })
