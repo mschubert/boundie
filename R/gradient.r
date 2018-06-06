@@ -7,9 +7,13 @@
 #' beta - Regressors, such that beta * x = y
 #' y - Observed count values
 #'
-#' @param par  Numeric vector of coefficient values
-#' @return  Direction of steepest descent (the gradient)
-gradient = function(par, weights, offset) {
+#' @param par  numeric vector of coefficients in ’x’ and theta
+#' @param x  design matrix of dimension ‘n * p’
+#' @param y  vector of observations of length ‘n’
+#' @param weights  vector of weights of length ‘n’
+#' @param offset  vector of coefficient offsets of length ‘n’
+#' @return  direction of steepest descent (the gradient)
+gradient = function(par, x, y, weights, offset) {
     beta = par[-length(par)]
     theta = exp(par[length(par)])
     mu = exp(x %*% beta + offset)

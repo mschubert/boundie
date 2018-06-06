@@ -4,7 +4,21 @@
 \alias{nll}
 \title{Negative log likelihood function}
 \usage{
-nll(par, weights, offset)
+nll(par, x, y, weights, offset)
+}
+\arguments{
+\item{par}{numeric vector of coefficients in ’x’ and theta}
+
+\item{x}{design matrix of dimension ‘n * p’}
+
+\item{y}{vector of observations of length ‘n’}
+
+\item{weights}{vector of weights of length ‘n’}
+
+\item{offset}{vector of coefficient offsets of length ‘n’}
+}
+\value{
+negative log-likelihood of a set of paramters given the data
 }
 \description{
 Negative log likelihood function

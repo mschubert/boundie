@@ -4,13 +4,21 @@
 \alias{gradient}
 \title{Gradient function for negative binomial regression}
 \usage{
-gradient(par, weights, offset)
+gradient(par, x, y, weights, offset)
 }
 \arguments{
-\item{par}{Numeric vector of coefficient values}
+\item{par}{numeric vector of coefficients in ’x’ and theta}
+
+\item{x}{design matrix of dimension ‘n * p’}
+
+\item{y}{vector of observations of length ‘n’}
+
+\item{weights}{vector of weights of length ‘n’}
+
+\item{offset}{vector of coefficient offsets of length ‘n’}
 }
 \value{
-Direction of steepest descent (the gradient)
+direction of steepest descent (the gradient)
 }
 \description{
 The following variables need to be available to the function in order to
