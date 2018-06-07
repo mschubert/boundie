@@ -15,7 +15,10 @@ boundie = function(x, design, weights=rep(1, ncol(x)), offset=rep(0, ncol(x)),
         mf = stats::model.frame(design)
         terms = attr(mf, "terms")
         x = stats::model.matrix(terms, mf)
-        fit(x, y, weights=weights, offset=offset, control=control,
+
+        keep = !is.na(y) & !rowSums(is.na(x))
+
+        fit(x[keep,], y[keep], weights=weights, offset=offset, control=control,
             lower=lower, upper=upper)
     }
 
