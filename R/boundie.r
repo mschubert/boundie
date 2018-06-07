@@ -11,14 +11,16 @@
 boundie = function(x, design, weights=rep(1, ncol(x)), offset=rep(0, ncol(x)),
                    lower=-Inf, upper=Inf, control=list()) {
     fit_one = function(gene) {
-        y = x[gene,]
-        mf = stats::model.frame(design)
+        ee = new.env(parent=environment(design))
+        assign("y", x[gene,], envir=ee)
+        fml = stats::as.formula(paste("y ~", as.character(design)[2]), env=ee)
+
+        mf = stats::model.frame(fml)
         terms = attr(mf, "terms")
         x = stats::model.matrix(terms, mf)
+        y = stats::model.response(mf)
 
-        keep = !is.na(y) & !rowSums(is.na(x))
-
-        fit(x[keep,], y[keep], weights=weights, offset=offset, control=control,
+        fit(x, y, weights=weights, offset=offset, control=control,
             lower=lower, upper=upper)
     }
 
