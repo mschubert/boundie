@@ -11,9 +11,7 @@
 boundie = function(x, design, weights=rep(1, ncol(x)), offset=rep(0, ncol(x)),
                    lower=-Inf, upper=Inf, control=list()) {
     fit_one = function(gene) {
-        ee = new.env(parent=environment(design))
         assign("y", x[gene,], envir=ee)
-        fml = stats::as.formula(paste("y ~", as.character(design)[2]), env=ee)
 
         mf = stats::model.frame(fml)
         terms = attr(mf, "terms")
@@ -23,6 +21,9 @@ boundie = function(x, design, weights=rep(1, ncol(x)), offset=rep(0, ncol(x)),
         fit(x, y, weights=weights, offset=offset, control=control,
             lower=lower, upper=upper)
     }
+
+    ee = new.env(parent=environment(design))
+    fml = stats::as.formula(paste("y ~", as.character(design)[2]), env=ee)
 
     res = lapply(rownames(x), fit_one)
     coefs = do.call(rbind, res)
