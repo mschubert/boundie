@@ -5,7 +5,7 @@
 \title{Fit parameters using the optim function}
 \usage{
 fit(x, y, weights = rep(1, nrow(x)), offset = 0, control = list(),
-  lower = Inf, upper = Inf)
+  lower = -Inf, upper = Inf)
 }
 \arguments{
 \item{x}{design matrix of dimension ‘n * p’}
@@ -18,9 +18,9 @@ fit(x, y, weights = rep(1, nrow(x)), offset = 0, control = list(),
 
 \item{control}{list of control paramters, e.g. ‘maxit’}
 
-\item{lower}{named vector of coefficient lower bounds}
+\item{lower}{vector of coefficient lower bounds}
 
-\item{upper}{named vector of coefficient upper bounds}
+\item{upper}{vector of coefficient upper bounds}
 }
 \value{
 named list with estimated coefficients

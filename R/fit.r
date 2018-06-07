@@ -5,11 +5,11 @@
 #' @param weights  vector of weights of length ‘n’
 #' @param offset  vector of coefficient offsets of length ‘n’
 #' @param control  list of control paramters, e.g. ‘maxit’
-#' @param lower  named vector of coefficient lower bounds
-#' @param upper  named vector of coefficient upper bounds
+#' @param lower  vector of coefficient lower bounds
+#' @param upper  vector of coefficient upper bounds
 #' @return  named list with estimated coefficients
 fit = function(x, y, weights=rep(1,nrow(x)), offset=0, control=list(),
-               lower=Inf, upper=Inf) {
+               lower=-Inf, upper=Inf) {
     mod = stats::glm.fit(x, y, weights=weights, family=stats::poisson(),
                          offset=offset, control=control)
     start = c(mod$coefficients, theta=0)

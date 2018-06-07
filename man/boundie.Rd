@@ -19,9 +19,9 @@ boundie(x, design, weights = rep(1, ncol(x)), offset = rep(0, ncol(x)),
 
 \item{offset}{vector of coefficient offsets of length ‘n’}
 
-\item{lower}{named vector of coefficient lower bounds}
+\item{lower}{vector of coefficient lower bounds}
 
-\item{upper}{named vector of coefficient upper bounds}
+\item{upper}{vector of coefficient upper bounds}
 
 \item{control}{named list of control variables for fit (e.g. maxiter)}
 }
