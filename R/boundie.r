@@ -13,17 +13,20 @@ boundie = function(x, design, weights=rep(1, ncol(x)), offset=rep(0, ncol(x)),
     fit_one = function(gene) {
         assign("y", x[gene,], envir=ee)
 
-        mf = stats::model.frame(fml)
+        mf = stats::model.frame(fml, w=w, o=o)
         terms = attr(mf, "terms")
         x = stats::model.matrix(terms, mf)
         y = stats::model.response(mf)
+        w = stats::model.extract(mf, "w")
+        o = stats::model.extract(mf, "o")
 
-        fit(x, y, weights=weights, offset=offset, control=control,
-            lower=lower, upper=upper)
+        fit(x, y, weights=w, offset=o, control=control, lower=lower, upper=upper)
     }
 
     ee = new.env(parent=environment(design))
     fml = stats::as.formula(paste("y ~", as.character(design)[2]), env=ee)
+    assign("w", weights, envir=ee)
+    assign("o", offset, envir=ee)
 
     res = lapply(rownames(x), fit_one)
     coefs = do.call(rbind, res)
