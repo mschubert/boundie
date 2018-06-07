@@ -30,5 +30,5 @@ boundie = function(x, design, weights=rep(1, ncol(x)), offset=rep(0, ncol(x)),
 
     res = lapply(rownames(x), fit_one)
     coefs = do.call(rbind, res)
-    data.frame(gene = rownames(x), coefs)
+    data.frame(gene = rownames(x), coefs, check.names=FALSE)
 }
