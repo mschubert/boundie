@@ -13,6 +13,7 @@ fit = function(x, y, weights=rep(1,nrow(x)), offset=0, control=list(),
     mod = stats::glm.fit(x, y, weights=weights, family=stats::poisson(),
                          offset=offset, control=control)
     start = c(mod$coefficients, theta=0)
+    start[is.na(start)] = 0
     #todo: if start outside bounds, set it at bounds
 
     # @return  list with the following components:
