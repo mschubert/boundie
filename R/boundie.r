@@ -23,12 +23,20 @@ boundie = function(x, design, weights=rep(1, ncol(x)), offset=rep(0, ncol(x)),
         fit(x, y, weights=w, offset=o, control=control, lower=lower, upper=upper)
     }
 
+    #TODO: check if formula is valid
+
     ee = new.env(parent=environment(design))
     fml = stats::as.formula(paste("y ~", as.character(design)[2]), env=ee)
     assign("w", weights, envir=ee)
     assign("o", offset, envir=ee)
 
-    res = lapply(rownames(x), fit_one)
+    res = lapply(rownames(x), function(x) try(fit_one(x)))
+
+    success = sapply(res, function(x) class(x) != "try-error")
+    if (any(!success))
+        warning(sum(!success), " fits failed")
+
+    res = res[success]
     coefs = do.call(rbind, res)
-    data.frame(gene = rownames(x), coefs, check.names=FALSE)
+    data.frame(gene = rownames(x)[success], coefs, check.names=FALSE)
 }
