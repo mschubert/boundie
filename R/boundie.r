@@ -4,12 +4,12 @@
 #' @param design  the model to fit for each gene, e.g. ‘~ condition‘
 #' @param weights  weight vector for all coefficients
 #' @param offset  vector of coefficient offsets of length ‘n’
-#' @param lower  vector of coefficient lower bounds
-#' @param upper  vector of coefficient upper bounds
+#' @param lower  named vector of coefficient lower bounds (-Inf otherwise)
+#' @param upper  named vector of coefficient upper bounds (Inf otherwise)
 #' @param control  named list of control variables for fit (e.g. maxiter)
 #' @export
 boundie = function(x, design, weights=rep(1, ncol(x)), offset=rep(0, ncol(x)),
-                   lower=-Inf, upper=Inf, control=list()) {
+                   lower=NULL, upper=NULL, control=list()) {
     fit_one = function(gene) {
         assign("y", x[gene,], envir=ee)
 
@@ -20,7 +20,12 @@ boundie = function(x, design, weights=rep(1, ncol(x)), offset=rep(0, ncol(x)),
         w = stats::model.extract(mf, "w")
         o = stats::model.extract(mf, "o")
 
-        fit(x, y, weights=w, offset=o, control=control, lower=lower, upper=upper)
+        dn = setNames(rep(-Inf, ncol(x)), colnames(x))
+        dn[names(lower)] = unlist(lower)
+        up = setNames(rep(Inf, ncol(x)), colnames(x))
+        up[names(upper)] = unlist(upper)
+
+        fit(x, y, weights=w, offset=o, control=control, lower=dn, upper=up)
     }
 
     if (!class(design) == "formula" || length(design) != 2)
