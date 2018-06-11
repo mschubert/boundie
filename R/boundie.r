@@ -23,7 +23,8 @@ boundie = function(x, design, weights=rep(1, ncol(x)), offset=rep(0, ncol(x)),
         fit(x, y, weights=w, offset=o, control=control, lower=lower, upper=upper)
     }
 
-    #TODO: check if formula is valid
+    if (!class(design) == "formula" || length(design) != 2)
+        stop("‘design‘ needs to be a right-handed formula")
 
     ee = new.env(parent=environment(design))
     fml = stats::as.formula(paste("y ~", as.character(design)[2]), env=ee)
