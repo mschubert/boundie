@@ -41,7 +41,7 @@ boundie = function(x, design, weights=rep(1, ncol(x)), offset=rep(0, ncol(x)),
     success = sapply(res, function(x) class(x) != "try-error")
     if (any(!success))
         warning(sum(!success), " fits failed: ",
-                paste(rownames(x)[!success], sep=", "))
+                paste(rownames(x)[!success], collapse=", "))
 
     res = res[success]
     coefs = do.call(rbind, res)

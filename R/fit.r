@@ -20,13 +20,21 @@ fit = function(x, y, weights=rep(1,nrow(x)), offset=0, control=list(),
     # @return  list with the following components:
     #   ‘par’ - best values for paramters found
     #   ‘value’ - negative log-likelihood at end of iterations
-    #   ‘convergence’ - 0 if converged, other values indicate iteration limit or warning
+    #   ‘convergence’ - 0 if converged, other values encode condition
     #   ‘message’ - character string with additional information
     res = stats::optim(par=start, fn=nll, gr=gradient, method="L-BFGS-B",
         control=control, .x=x, .y=y, weights=weights, offset=offset,
-        lower=lower, upper=upper)
+        lower=lower, upper=upper, hessian=TRUE)
+
+    # we are minimizing the negative log likelihood, so the covariance matrix
+    # is the hessian; diagonalizing and taking those elements, we get the
+    # variance (which is the standard error squared)
+    beta_se = sqrt(pmax(diag(solve(res$hessian)), 0))
+    wald = res$par / beta_se
+    pval = 2 * pnorm(abs(wald), lower.tail=FALSE)
 
     #todo: assemble results in list and return that
     # would also be nice if wald statistic, p-value
-    res$par
+    data.frame(term=names(res$par), estimate=res$par, statistic=wald,
+               p.value=pval, check.names=FALSE, row.names=NULL)
 }

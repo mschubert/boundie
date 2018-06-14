@@ -8,6 +8,7 @@ test_that("100 samples, 2 components, same as glm.nb", {
     both = round(f1 * c1 + f2 * c2)
 
     ctl = MASS::glm.nb(both ~ 0 + f1 + f2)
+    stat = coef(summary(ctl))[,'z value']
 
     mf = model.frame(both ~ 0 + f1 + f2)
     terms = attr(mf, "terms")
@@ -15,5 +16,8 @@ test_that("100 samples, 2 components, same as glm.nb", {
     y = model.response(mf)
     res = fit(x, y)
 
-    expect_true(all(res[1:2] - coef(ctl) < 1e-4))
+    # expect same coefficients, max 15% diff stat due to diff fitting
+    expect_true(all(res$estimate[1:2] - coef(ctl) < 1e-4))
+    expect_true(abs(log2(res$statistic[1] / stat[1])) < log2(1.15))
+    expect_true(abs(log2(res$statistic[2] / stat[2])) < log2(1.15))
 })
