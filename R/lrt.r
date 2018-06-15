@@ -10,7 +10,7 @@ lrt = function(x, y, weights=rep(1,nrow(x)), offset=0, control=list(),
     red = do.call(fit, as.list(match.call())[-1], envir=parent.frame())
 
     df = length(y) - ncol(x)
-    stat = 2 * (full$logLike - red$logLike)
+    stat = 2 * (full$value - red$value)
     pval = pchisq(stat, df=df, lower.tail=FALSE)
 
     # only report the term difference between full and reduced model
