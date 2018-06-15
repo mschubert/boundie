@@ -1,4 +1,4 @@
-context("wald test")
+context("likelihood ratio test")
 
 test_that("100 samples, 2 components, same as glm.nb", {
     f1 = runif(100)
