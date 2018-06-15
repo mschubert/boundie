@@ -40,7 +40,7 @@ boundie = function(x, design, weights=rep(1, ncol(x)), offset=rep(0, ncol(x)),
     if (is.null(reduced))
         tfun = wald
     else
-        tfun = function(...) lrt(..., red_params=all.vars(reduced))
+        tfun = function(...) lrt(..., reduced=all.vars(reduced))
 
     res = lapply(rownames(x), function(x) try(fit_one(x)))
 

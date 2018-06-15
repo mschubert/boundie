@@ -4,13 +4,15 @@
 \alias{lrt}
 \title{Likelihood ratio test for model fits}
 \usage{
-lrt(x, y, weights = rep(1, nrow(x)), offset = 0, control = list(),
-  lower = -Inf, upper = Inf)
+lrt(x, y, reduced, weights = rep(1, nrow(x)), offset = 0,
+  control = list(), lower = -Inf, upper = Inf)
 }
 \arguments{
 \item{x}{design matrix of dimension ‘n * p’}
 
 \item{y}{vector of observations of length ‘n’}
+
+\item{reduced}{character vector of parameters used in the reduced model}
 
 \item{weights}{vector of weights of length ‘n’}
 
@@ -21,8 +23,6 @@ lrt(x, y, weights = rep(1, nrow(x)), offset = 0, control = list(),
 \item{lower}{vector of coefficient lower bounds}
 
 \item{upper}{vector of coefficient upper bounds}
-
-\item{red_params}{character vector of parameters used in the reduced model}
 }
 \value{
 a data.frame with terms, their fitted values, and LRT result
