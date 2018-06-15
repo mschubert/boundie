@@ -1,4 +1,4 @@
-context("resolve mixture")
+context("wald test")
 
 test_that("100 samples, 2 components, same as glm.nb", {
     f1 = runif(100)
@@ -14,8 +14,10 @@ test_that("100 samples, 2 components, same as glm.nb", {
     terms = attr(mf, "terms")
     x = model.matrix(terms, mf)
     y = model.response(mf)
-    res = fit(x, y)
+    res = wald(x, y)
 
     # expect same coefficients, max 15% diff stat due to diff fitting
     expect_true(all(res$estimate[1:2] - coef(ctl) < 1e-4))
+    expect_true(abs(log2(res$statistic[1] / stat[1])) < log2(1.15))
+    expect_true(abs(log2(res$statistic[2] / stat[2])) < log2(1.15))
 })

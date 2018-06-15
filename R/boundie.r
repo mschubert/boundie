@@ -7,9 +7,10 @@
 #' @param lower  named vector of coefficient lower bounds (-Inf otherwise)
 #' @param upper  named vector of coefficient upper bounds (Inf otherwise)
 #' @param control  named list of control variables for fit (e.g. maxiter)
+#' @param reduced  the reduced model for a likelihood ratio test
 #' @export
 boundie = function(x, design, weights=rep(1, ncol(x)), offset=rep(0, ncol(x)),
-                   lower=NULL, upper=NULL, control=list()) {
+                   lower=NULL, upper=NULL, control=list(), reduced=NULL) {
     fit_one = function(gene) {
         assign("y", x[gene,], envir=ee)
 
@@ -25,7 +26,7 @@ boundie = function(x, design, weights=rep(1, ncol(x)), offset=rep(0, ncol(x)),
         up = setNames(rep(Inf, ncol(x) + 1), c(colnames(x), "theta"))
         up[names(upper)] = unlist(upper)
 
-        fit(x, y, weights=w, offset=o, control=control, lower=dn, upper=up)
+        tfun(x, y, weights=w, offset=o, control=control, lower=dn, upper=up)
     }
 
     if (!class(design) == "formula" || length(design) != 2)
@@ -35,6 +36,11 @@ boundie = function(x, design, weights=rep(1, ncol(x)), offset=rep(0, ncol(x)),
     fml = stats::as.formula(paste("y ~", as.character(design)[2]), env=ee)
     assign("w", weights, envir=ee)
     assign("o", offset, envir=ee)
+
+    if (is.null(reduced))
+        tfun = wald
+    else
+        tfun = function(...) lrt(..., red_params=all.vars(reduced))
 
     res = lapply(rownames(x), function(x) try(fit_one(x)))
 

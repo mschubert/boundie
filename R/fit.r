@@ -7,9 +7,10 @@
 #' @param control  list of control paramters, e.g. ‘maxit’
 #' @param lower  vector of coefficient lower bounds
 #' @param upper  vector of coefficient upper bounds
+#' @param hessian  whether to return the hessian at the optimized nll
 #' @return  named list with estimated coefficients
 fit = function(x, y, weights=rep(1,nrow(x)), offset=0, control=list(),
-               lower=-Inf, upper=Inf) {
+               lower=-Inf, upper=Inf, hessian=FALSE) {
     mod = suppressWarnings(
         stats::glm.fit(x, y, weights=weights, family=stats::poisson(),
                        offset=offset, control=control))
@@ -22,19 +23,7 @@ fit = function(x, y, weights=rep(1,nrow(x)), offset=0, control=list(),
     #   ‘value’ - negative log-likelihood at end of iterations
     #   ‘convergence’ - 0 if converged, other values encode condition
     #   ‘message’ - character string with additional information
-    res = stats::optim(par=start, fn=nll, gr=gradient, method="L-BFGS-B",
+    stats::optim(par=start, fn=nll, gr=gradient, method="L-BFGS-B",
         control=control, .x=x, .y=y, weights=weights, offset=offset,
-        lower=lower, upper=upper, hessian=TRUE)
-
-    # we are minimizing the negative log likelihood, so the covariance matrix
-    # is the hessian; diagonalizing and taking those elements, we get the
-    # variance (which is the standard error squared)
-    beta_se = sqrt(pmax(diag(solve(res$hessian)), 0))
-    wald = res$par / beta_se
-    pval = 2 * pnorm(abs(wald), lower.tail=FALSE)
-
-    #todo: assemble results in list and return that
-    # would also be nice if wald statistic, p-value
-    data.frame(term=names(res$par), estimate=res$par, statistic=wald,
-               p.value=pval, check.names=FALSE, row.names=NULL)
+        lower=lower, upper=upper, hessian=hessian)
 }
