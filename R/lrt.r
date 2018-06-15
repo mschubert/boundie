@@ -5,9 +5,9 @@
 #' @return  a data.frame with terms, their fitted values, and LRT result
 lrt = function(x, y, weights=rep(1,nrow(x)), offset=0, control=list(),
                 lower=-Inf, upper=Inf) {
-    full = do.call(fit, as.list(match.call())[-1])
+    full = do.call(fit, as.list(match.call())[-1], envir=parent.frame())
     x = x[,reduced]
-    red = do.call(fit, as.list(match.call())[-1])
+    red = do.call(fit, as.list(match.call())[-1], envir=parent.frame())
 
     df = length(y) - ncol(x)
     stat = 2 * (full$logLike - red$logLike)
