@@ -16,7 +16,8 @@ fit = function(x, y, weights=rep(1,nrow(x)), offset=0, control=list(),
                        offset=offset, control=control))
     start = c(mod$coefficients, theta=0)
     start[is.na(start)] = 0
-    #todo: if start outside bounds, set it at bounds
+    start = pmin(start, upper)
+    start = pmax(start, lower)
 
     # @return  list with the following components:
     #   ‘par’ - best values for paramters found
