@@ -9,6 +9,6 @@
 nll = function(par, .x, .y, weights, offset) {
     beta = par[-length(par)]
     theta = exp(par[length(par)])
-    mu = exp(.x %*% beta + offset)
+    mu = .x %*% beta + offset
     -sum(weights * stats::dnbinom(.y, mu=mu, size=theta, log=TRUE))
 }

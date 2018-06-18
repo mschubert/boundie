@@ -16,7 +16,7 @@
 gradient = function(par, .x, .y, weights, offset) {
     beta = par[-length(par)]
     theta = exp(par[length(par)])
-    mu = exp(.x %*% beta + offset)
+    mu = .x %*% beta + offset
     grc = drop(.y - mu * (.y + theta)/(mu + theta))
     grt = digamma(.y + theta) - digamma(theta) +
         log(theta) + 1 - log(mu + theta) - (.y + theta)/(mu + theta)
