@@ -20,5 +20,5 @@ gradient = function(par, .x, .y, weights, offset) {
     grc = drop(.y - mu * (.y + theta)/(mu + theta))
     grt = digamma(.y + theta) - digamma(theta) +
         log(theta) + 1 - log(mu + theta) - (.y + theta)/(mu + theta)
-    colSums(-weights * cbind(grc * .x, grt * theta))
+    -colSums(weights * cbind(grc * .x, grt * theta))
 }
