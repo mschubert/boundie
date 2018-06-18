@@ -13,8 +13,8 @@ fit = function(x, y, weights=rep(1,nrow(x)), offset=0, control=list(),
                lower=-Inf, upper=Inf, hessian=FALSE) {
     mod = suppressWarnings(
         stats::glm.fit(x, y, weights=weights, offset=offset,
-                       family=stats::poisson(link=identity), control=control))
-    start = c(mod$coefficients, theta=0)
+                       family=stats::poisson(), control=control))
+    start = c(exp(mod$coefficients), theta=0)
     start[is.na(start)] = 0
     start = pmin(start, upper)
     start = pmax(start, lower)
