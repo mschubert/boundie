@@ -1,9 +1,9 @@
 #' Bounded coefficient differential expression
 #'
 #' @param x  a gene expression matrix (genes x samples)
-#' @param design  the model to fit for each gene, e.g. ‘~ condition‘
+#' @param design  the model to fit for each gene, e.g. '~ condition'
 #' @param weights  weight vector for all coefficients
-#' @param offset  vector of coefficient offsets of length ‘n’
+#' @param offset  vector of coefficient offsets of length 'n'
 #' @param lower  named vector of coefficient lower bounds (-Inf otherwise)
 #' @param upper  named vector of coefficient upper bounds (Inf otherwise)
 #' @param control  named list of control variables for fit (e.g. maxiter)
@@ -30,7 +30,7 @@ boundie = function(x, design, weights=rep(1, ncol(x)), offset=rep(0, ncol(x)),
     }
 
     if (!class(design) == "formula" || length(design) != 2)
-        stop("‘design‘ needs to be a right-handed formula")
+        stop("'design' needs to be a right-handed formula")
 
     ee = new.env(parent=environment(design))
     fml = stats::as.formula(paste("y ~", as.character(design)[2]), env=ee)

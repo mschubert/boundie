@@ -13,11 +13,11 @@ boundie(x, design, weights = rep(1, ncol(x)), offset = rep(0, ncol(x)),
 \arguments{
 \item{x}{a gene expression matrix (genes x samples)}
 
-\item{design}{the model to fit for each gene, e.g. ‘~ condition‘}
+\item{design}{the model to fit for each gene, e.g. '~ condition'}
 
 \item{weights}{weight vector for all coefficients}
 
-\item{offset}{vector of coefficient offsets of length ‘n’}
+\item{offset}{vector of coefficient offsets of length 'n'}
 
 \item{lower}{named vector of coefficient lower bounds (-Inf otherwise)}
 
