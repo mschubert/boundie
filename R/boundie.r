@@ -22,10 +22,12 @@ boundie = function(x, design, weights=rep(1, ncol(x)), offset=rep(0, ncol(x)),
         o = stats::model.extract(mf, "o")
 
         valid = c(colnames(x), "theta")
+        lower = lower[names(lower) %in% valid]
+        upper = upper[names(upper) %in% valid]
         dn = stats::setNames(rep(-Inf, ncol(x) + 1), valid)
-        dn[names(lower)] = unlist(lower)[names(lower) %in% valid]
         up = stats::setNames(rep(Inf, ncol(x) + 1), valid)
-        up[names(upper)] = unlist(upper)[names(upper) %in% valid]
+        dn[names(lower)] = unlist(lower)
+        up[names(upper)] = unlist(upper)
 
         tfun(x, y, weights=w, offset=o, control=control, lower=dn, upper=up)
     }
