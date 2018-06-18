@@ -10,7 +10,7 @@ lrt = function(x, y, reduced, weights=rep(1,nrow(x)), offset=0, control=list(),
 
     df = length(y) - ncol(x)
     stat = 2 * (red$value - full$value)
-    pval = pchisq(stat, df=df, lower.tail=FALSE)
+    pval = stats::pchisq(stat, df=df, lower.tail=FALSE)
 
     # only report the term difference between full and reduced model
     data.frame(statistic=stat, p.value=pval)

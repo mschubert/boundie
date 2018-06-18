@@ -1,2 +1,2 @@
 library(testthat)
-test_check("narray")
+test_check("boundie")

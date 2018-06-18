@@ -12,8 +12,8 @@ wald = function(x, y, weights=rep(1,nrow(x)), offset=0, control=list(),
     # variance (which is the standard error squared)
     beta_se = sqrt(pmax(diag(solve(res$hessian)), 0))
     wald = res$par / beta_se
-    pval = 2 * pnorm(abs(wald), lower.tail=FALSE)
-    # pval = 2 * pt(abs(wald), df=df, lower.tail=FALSE)
+    pval = 2 * stats::pnorm(abs(wald), lower.tail=FALSE)
+    # pval = 2 * stats::pt(abs(wald), df=df, lower.tail=FALSE)
 
     # assemble results
     data.frame(term=names(res$par), estimate=res$par, statistic=wald,
