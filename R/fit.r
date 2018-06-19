@@ -14,7 +14,7 @@ fit = function(x, y, weights=rep(1,nrow(x)), offset=0, control=list(),
     mod = suppressWarnings(
         stats::glm.fit(x, y, weights=weights, offset=offset,
                        family=stats::poisson(), control=control))
-    start = c(exp(mod$coefficients), theta=0)
+    start = c(exp(mod$coefficients), theta=1)
     start[is.na(start)] = 0
     start = pmin(start, upper)
     start = pmax(start, lower)
@@ -24,7 +24,13 @@ fit = function(x, y, weights=rep(1,nrow(x)), offset=0, control=list(),
     #   ‘value’ - negative log-likelihood at end of iterations
     #   ‘convergence’ - 0 if converged, other values encode condition
     #   ‘message’ - character string with additional information
-    stats::optim(par=start, fn=nll, gr=gradient, method="L-BFGS-B",
+
+    #TODO: only add 'lower', 'upper' to ui if limits set
+    # also, BFGS-B boundary (maybe?) needs to be less stringent than outer
+    # not passing bounds to optim leads to 0 in nll -> error w/ log
+    ui = cbind(rbind(x, diag(ncol(x))), 0)
+    ci = rep(1e-8, length(y)+ncol(x))
+    stats::constrOptim(theta=start, f=nll, grad=gradient, method="L-BFGS-B",
         control=control, .x=x, .y=y, weights=weights, offset=offset,
-        lower=lower, upper=upper, hessian=hessian)
+        ui=ui, ci=ci, lower=lower, upper=upper, hessian=hessian)
 }

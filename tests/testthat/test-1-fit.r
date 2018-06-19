@@ -7,15 +7,14 @@ test_that("100 samples, 2 components, same as glm.nb", {
     c2 = stats::rnbinom(n=100, size=20, mu=10)
     both = round(f1 * c1 + f2 * c2)
 
-    ctl = MASS::glm.nb(both ~ 0 + f1 + f2)
-    stat = coef(summary(ctl))[,'z value']
+    ctl = MASS::glm.nb(both ~ 0 + f1 + f2, link=identity)
 
     mf = model.frame(both ~ 0 + f1 + f2)
     terms = attr(mf, "terms")
     x = model.matrix(terms, mf)
     y = model.response(mf)
-    res = fit(x, y)
+    res = fit(x, y, lower=c(1e-5,1e-5,-Inf))
 
-    # expect same coefficients, max 15% diff stat due to diff fitting
-    expect_true(all(res$estimate[1:2] - coef(ctl) < 1e-4))
+    # allow 20/50% deviance
+    expect_true(all(abs(res$par[1:2] - coef(ctl)) < c(200, 5)))
 })
