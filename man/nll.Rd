@@ -4,7 +4,7 @@
 \alias{nll}
 \title{Negative log likelihood function}
 \usage{
-nll(par, .x, .y, weights, offset)
+nll(par, .x, .y, weights, offset, ...)
 }
 \arguments{
 \item{par}{numeric vector of coefficients in ’x’ and theta}
@@ -16,10 +16,13 @@ nll(par, .x, .y, weights, offset)
 \item{weights}{vector of weights of length ‘n’}
 
 \item{offset}{vector of coefficient offsets of length ‘n’}
+
+\item{...}{ignored}
 }
 \value{
 negative log-likelihood of a set of paramters given the data
 }
 \description{
-Negative log likelihood function
+We're maximizing the likelihood function, so minimizing the negative log
+likelihood (which is the default in optim)
 }

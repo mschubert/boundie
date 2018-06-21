@@ -4,7 +4,7 @@
 \alias{gradient}
 \title{Gradient function for negative binomial regression}
 \usage{
-gradient(par, .x, .y, weights, offset)
+gradient(par, .x, .y, weights, offset, ...)
 }
 \arguments{
 \item{par}{numeric vector of coefficients in ’x’ and theta}
@@ -16,6 +16,8 @@ gradient(par, .x, .y, weights, offset)
 \item{weights}{vector of weights of length ‘n’}
 
 \item{offset}{vector of coefficient offsets of length ‘n’}
+
+\item{...}{ignored}
 }
 \value{
 direction of steepest descent (the gradient)
