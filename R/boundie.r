@@ -24,8 +24,8 @@ boundie = function(x, design, weights=rep(1, ncol(x)), offset=rep(0, ncol(x)),
         valid = c(colnames(x), "theta")
         lower = lower[names(lower) %in% valid]
         upper = upper[names(upper) %in% valid]
-        dn = stats::setNames(rep(-Inf, ncol(x) + 1), valid)
-        up = stats::setNames(rep(Inf, ncol(x) + 1), valid)
+        dn = stats::setNames(c(rep(-Inf, ncol(x)), -.Machine$double.min.exp), valid)
+        up = stats::setNames(c(rep(Inf, ncol(x)), .Machine$double.max.exp), valid)
         dn[names(lower)] = unlist(lower)
         up[names(upper)] = unlist(upper)
 
