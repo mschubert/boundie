@@ -15,8 +15,9 @@ nll = function(par, .x, .y, weights, offset, ...) {
     theta = exp(par[length(par)])
     mu = .x %*% beta + offset
 
+    #message(paste(sprintf("%.2f", par), collapse=", ")) # debug
+
     nb = suppressWarnings(stats::dnbinom(.y, mu=mu, size=theta, log=TRUE))
-    nb[is.infinite(nb)] = -exp(1 + mu - .y)[is.infinite(nb)]
-    nb[is.na(nb)] = -exp(1 + mu)[is.na(nb)]
+    nb[is.na(nb)] = -exp(1 - mu)[is.na(nb)] # penalize mu < 0
     -sum(weights * nb)
 }
