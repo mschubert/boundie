@@ -4,7 +4,8 @@
 \alias{nll}
 \title{Negative log likelihood function}
 \usage{
-nll(par, .x, .y, weights, offset, ...)
+nll(par, .x, .y, weights = rep(1, nrow(.x)), offset = rep(0, nrow(.x)),
+  .verbose = FALSE)
 }
 \arguments{
 \item{par}{numeric vector of coefficients in ’x’ and theta}
@@ -16,6 +17,8 @@ nll(par, .x, .y, weights, offset, ...)
 \item{weights}{vector of weights of length ‘n’}
 
 \item{offset}{vector of coefficient offsets of length ‘n’}
+
+\item{verbose}{print debug messages}
 
 \item{...}{ignored}
 }

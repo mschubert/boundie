@@ -5,7 +5,7 @@
 \title{Likelihood ratio test for model fits}
 \usage{
 lrt(x, y, reduced, weights = rep(1, nrow(x)), offset = 0,
-  control = list(), lower = -Inf, upper = Inf)
+  control = list(), lower = -Inf, upper = Inf, verbose = FALSE)
 }
 \arguments{
 \item{x}{design matrix of dimension ‘n * p’}
@@ -23,6 +23,8 @@ lrt(x, y, reduced, weights = rep(1, nrow(x)), offset = 0,
 \item{lower}{vector of coefficient lower bounds}
 
 \item{upper}{vector of coefficient upper bounds}
+
+\item{verbose}{print debug messages}
 }
 \value{
 a data.frame with terms, their fitted values, and LRT result

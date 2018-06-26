@@ -5,7 +5,7 @@
 \title{Fit parameters using the optim function}
 \usage{
 fit(x, y, weights = rep(1, nrow(x)), offset = 0, control = list(),
-  lower = -Inf, upper = Inf, hessian = FALSE)
+  lower = -Inf, upper = Inf, hessian = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{x}{design matrix of dimension ‘n * p’}
@@ -23,6 +23,8 @@ fit(x, y, weights = rep(1, nrow(x)), offset = 0, control = list(),
 \item{upper}{vector of coefficient upper bounds}
 
 \item{hessian}{whether to return the hessian at the optimized nll}
+
+\item{verbose}{print debug messages}
 }
 \value{
 named list with estimated coefficients

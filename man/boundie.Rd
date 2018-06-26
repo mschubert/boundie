@@ -8,7 +8,8 @@
 \title{Bounded differential expression using count data}
 \usage{
 boundie(x, design, weights = rep(1, ncol(x)), offset = rep(0, ncol(x)),
-  lower = NULL, upper = NULL, control = list(), reduced = NULL)
+  lower = NULL, upper = NULL, control = list(), reduced = NULL,
+  verbose = FALSE)
 }
 \arguments{
 \item{x}{a gene expression matrix (genes x samples)}
@@ -26,6 +27,8 @@ boundie(x, design, weights = rep(1, ncol(x)), offset = rep(0, ncol(x)),
 \item{control}{named list of control variables for fit (e.g. maxiter)}
 
 \item{reduced}{the reduced model for a likelihood ratio test}
+
+\item{verbose}{print debug messages}
 }
 \description{
 Bounded differential expression using count data

@@ -5,7 +5,7 @@
 \title{Wald test for model fits}
 \usage{
 wald(x, y, weights = rep(1, nrow(x)), offset = 0, control = list(),
-  lower = -Inf, upper = Inf)
+  lower = -Inf, upper = Inf, verbose = FALSE)
 }
 \arguments{
 \item{x}{design matrix of dimension ‘n * p’}
@@ -21,6 +21,8 @@ wald(x, y, weights = rep(1, nrow(x)), offset = 0, control = list(),
 \item{lower}{vector of coefficient lower bounds}
 
 \item{upper}{vector of coefficient upper bounds}
+
+\item{verbose}{print debug messages}
 }
 \value{
 a data.frame with terms, their fitted values, and wald statistic
