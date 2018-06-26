@@ -13,7 +13,6 @@
 #' @param weights  vector of weights of length ‘n’
 #' @param offset  vector of coefficient offsets of length ‘n’
 #' @param verbose  print debug messages
-#' @param ...  ignored
 #' @return  direction of steepest descent (the gradient)
 gradient = function(par, .x, .y, weights=rep(1, nrow(.x)), offset=rep(0, nrow(.x)),
                     .verbose=FALSE) {

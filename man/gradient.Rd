@@ -19,8 +19,6 @@ gradient(par, .x, .y, weights = rep(1, nrow(.x)), offset = rep(0, nrow(.x)),
 \item{offset}{vector of coefficient offsets of length ‘n’}
 
 \item{verbose}{print debug messages}
-
-\item{...}{ignored}
 }
 \value{
 direction of steepest descent (the gradient)
