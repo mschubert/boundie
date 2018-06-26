@@ -3,8 +3,9 @@
 #' @inheritParams  fit
 #' @return  a data.frame with terms, their fitted values, and wald statistic
 wald = function(x, y, weights=rep(1,nrow(x)), offset=0, control=list(),
-                lower=-Inf, upper=Inf) {
-    res = do.call(fit, c(as.list(match.call())[-1], list(hessian=TRUE)),
+                lower=-Inf, upper=Inf, verbose=FALSE) {
+    res = do.call(fit, c(as.list(match.call())[-1],
+                  list(hessian=TRUE, verbose=verbose)),
                   envir=parent.frame())
 
     # we are minimizing the negative log likelihood, so the covariance matrix

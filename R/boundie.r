@@ -8,9 +8,11 @@
 #' @param upper  named vector of coefficient upper bounds (Inf otherwise)
 #' @param control  named list of control variables for fit (e.g. maxiter)
 #' @param reduced  the reduced model for a likelihood ratio test
+#' @param verbose  print debug messages
 #' @export
 boundie = function(x, design, weights=rep(1, ncol(x)), offset=rep(0, ncol(x)),
-                   lower=NULL, upper=NULL, control=list(), reduced=NULL) {
+                   lower=NULL, upper=NULL, control=list(), reduced=NULL,
+                   verbose=FALSE) {
     fit_one = function(gene) {
         assign("y", x[gene,], envir=ee)
 
@@ -24,12 +26,14 @@ boundie = function(x, design, weights=rep(1, ncol(x)), offset=rep(0, ncol(x)),
         valid = c(colnames(x), "theta")
         lower = lower[names(lower) %in% valid]
         upper = upper[names(upper) %in% valid]
-        dn = stats::setNames(c(rep(-Inf, ncol(x)), -.Machine$double.min.exp), valid)
-        up = stats::setNames(c(rep(Inf, ncol(x)), .Machine$double.max.exp), valid)
+        # log(.Machine$double.min/max.exp) == 0, hence 100
+        dn = stats::setNames(c(rep(-Inf, ncol(x)), -100), valid)
+        up = stats::setNames(c(rep(Inf, ncol(x)), 100), valid)
         dn[names(lower)] = unlist(lower)
         up[names(upper)] = unlist(upper)
 
-        tfun(x, y, weights=w, offset=o, control=control, lower=dn, upper=up)
+        tfun(x, y, weights=w, offset=o, control=control,
+             lower=dn, upper=up)
     }
 
     if (!class(design) == "formula" || length(design) != 2)

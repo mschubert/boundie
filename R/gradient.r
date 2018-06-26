@@ -12,9 +12,11 @@
 #' @param .y  vector of observations of length ‘n’
 #' @param weights  vector of weights of length ‘n’
 #' @param offset  vector of coefficient offsets of length ‘n’
+#' @param verbose  print debug messages
 #' @param ...  ignored
 #' @return  direction of steepest descent (the gradient)
-gradient = function(par, .x, .y, weights, offset, ...) {
+gradient = function(par, .x, .y, weights=rep(1, nrow(.x)), offset=rep(0, nrow(.x)),
+                    .verbose=FALSE) {
     beta = par[-length(par)]
     theta = exp(par[length(par)])
     mu = .x %*% beta + offset
@@ -23,8 +25,12 @@ gradient = function(par, .x, .y, weights, offset, ...) {
         grc = drop(.y - mu * (.y + theta)/(mu + theta))
         grt = digamma(.y + theta) - digamma(theta) +
             log(theta) + 1 - log(mu + theta) - (.y + theta)/(mu + theta)
-        -colSums(weights * cbind(grc * .x, grt * theta))
+        gr = -colSums(weights * cbind(grc * .x, grt * theta))
     } else {
-        c(-beta, 0) # trivial solution for mu=0
+        gr = c(-beta, 0) # trivial solution for mu=0
     }
+
+    if (.verbose)
+        message("gr: ", paste(sprintf("%.2f", gr), collapse=", "))
+    gr
 }

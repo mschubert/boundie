@@ -4,9 +4,10 @@
 #' @param  reduced  character vector of parameters used in the reduced model
 #' @return  a data.frame with terms, their fitted values, and LRT result
 lrt = function(x, y, reduced, weights=rep(1,nrow(x)), offset=0, control=list(),
-                lower=-Inf, upper=Inf) {
-    full = fit(x, y, weights, offset, control, lower, upper)
-    red = fit(x[,reduced, drop=FALSE], y, weights, offset, control, lower, upper)
+                lower=-Inf, upper=Inf, verbose=FALSE) {
+    full = fit(x, y, weights, offset, control, lower, upper, verbose=verbose)
+    red = fit(x[,reduced, drop=FALSE], y, weights, offset, control,
+              lower, upper, verbose=verbose)
 
     df = length(y) - ncol(x)
     stat = 2 * (red$value - full$value)
